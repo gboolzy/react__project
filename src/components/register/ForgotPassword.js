@@ -1,7 +1,7 @@
 import { FormInput, FormLabel } from "../utility/FormComponent";
 import { Link } from "react-router-dom";
 
-const LoginForm = () => {
+const ForgotPassword = () => {
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -31,31 +31,14 @@ const LoginForm = () => {
                   inputPlaceholder="name@company.com"
                 />
               </div>
-              <div>
-                <FormLabel labelForm="password">Password</FormLabel>
-                <FormInput
-                  inputType="password"
-                  inputName="password"
-                  inputId="password"
-                  inputPlaceholder="••••••••"
-                />
-              </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
                   <div className="flex items-center h-5">
-                    {/* <input
-                      id="remember"
-                      //   aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                      required=""
-                    /> */}
                     <FormInput
                       inputType="checkbox"
                       inputName=""
                       inputId="remember"
                     />
-                    
                   </div>
                   <div className="ml-3 text-sm">
                     <label
@@ -77,7 +60,6 @@ const LoginForm = () => {
                 type="submit"
                 style={{ backgroundColor: "rgb(37 99 235)" }}
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                // className={ "w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"}
               >
                 Sign in
               </button>
@@ -97,4 +79,5 @@ const LoginForm = () => {
     </section>
   );
 };
-export default LoginForm;
+
+export default ForgotPassword;
