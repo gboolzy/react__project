@@ -1,6 +1,21 @@
-import { FormInput, FormLabel } from "../utility/FormComponent";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { FormInput, FormLabel } from "../../utility/FormComponent";
 const RegisterForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const navigate = useNavigate();
+  const onSubmitHandler = (data) => {
+    console.log(data);
+    navigate('/')
+    
+  };
+
+  const inputClass =
+    "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500";
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -20,7 +35,11 @@ const RegisterForm = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Create and account
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <form
+              className="space-y-4 md:space-y-6"
+              onSubmit={handleSubmit(onSubmitHandler)}
+
+            >
               {/* <div>
                 <FormLabel labelForm="firstName">Your first name</FormLabel>
                 <FormInput
@@ -41,32 +60,39 @@ const RegisterForm = () => {
               </div> */}
               <div>
                 <FormLabel labelForm="email">Your email</FormLabel>
-                <FormInput
-                  inputType="email"
-                  inputName="email"
-                  inputId="email"
-                  inputPlaceholder="name@company.com"
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  className={inputClass}
+                  placeholder="name@company.com"
+                  {...register("email", { required: true })}
                 />
+                {errors.email && <p>Last name is required.</p>}
               </div>
               <div>
                 <FormLabel labelForm="mobileNo">Your mobile no</FormLabel>
-
-                <FormInput
-                  inputType="text"
-                  inputName="mobileNo"
-                  inputId="mobileNo"
-                  inputPlaceholder="0707890934"
+                <input
+                  type="text"
+                  name="mobileNo"
+                  id="mobileNo"
+                  className={inputClass}
+                  placeholder="0707890934"
+                  {...register("mobileNo", { required: true, pattern: /\d+/ })}
                 />
+                {errors.mobileNo && <p>Last name is required.</p>}
               </div>
               <div>
                 <FormLabel labelForm="password">Password</FormLabel>
-
-                <FormInput
-                  inputType="password"
-                  inputName="password"
-                  inputId="password"
-                  inputPlaceholder="••••••••"
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  className={inputClass}
+                  placeholder="••••••••"
+                  {...register("password", { required: true })}
                 />
+                {errors.password && <p>Last name is required.</p>}
               </div>
               {/* <div>
                 <FormLabel labelForm="confirm-password">
@@ -81,10 +107,7 @@ const RegisterForm = () => {
               </div> */}
               <div className="flex items-start">
                 <div className="flex items-center h-5">
-                <FormInput
-                  inputType="checkbox"
-                  inputId="terms"
-                />
+                  <FormInput inputType="checkbox" inputId="terms" />
                 </div>
                 <div className="ml-3 text-sm">
                   <FormLabel labelForm="terms">
@@ -107,7 +130,6 @@ const RegisterForm = () => {
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already have an account?{" "}
-                
                 <Link
                   to="/"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"

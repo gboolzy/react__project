@@ -1,7 +1,19 @@
-import { FormInput, FormLabel } from "../utility/FormComponent";
-import { Link } from "react-router-dom";
+import { FormInput, FormLabel } from "../../utility/FormComponent";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const navigate = useNavigate();
+  const onSubmitHandler = (data) => {
+    navigate("/dashboard");
+  };
+  const inputClass =
+  "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500";
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -21,24 +33,34 @@ const LoginForm = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Sign in to your account
             </h1>
-            <form method="POST" className="space-y-4 md:space-y-6" action="#">
+            <form
+              method="POST"
+              className="space-y-4 md:space-y-6"
+              onSubmit={handleSubmit(onSubmitHandler)}
+            >
               <div>
                 <FormLabel labelForm="email">Your email</FormLabel>
-                <FormInput
-                  inputType="email"
-                  inputName="email"
-                  inputId="email"
-                  inputPlaceholder="name@company.com"
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  className={inputClass}
+                  placeholder="name@company.com"
+                  {...register("email", { required: true })}
                 />
+                {errors.email && <p>Last name is required.</p>}
               </div>
               <div>
                 <FormLabel labelForm="password">Password</FormLabel>
-                <FormInput
-                  inputType="password"
-                  inputName="password"
-                  inputId="password"
-                  inputPlaceholder="••••••••"
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  className={inputClass}
+                  placeholder="••••••••"
+                  {...register("password", { required: true })}
                 />
+                {errors.password && <p>Last name is required.</p>}
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
@@ -55,7 +77,6 @@ const LoginForm = () => {
                       inputName=""
                       inputId="remember"
                     />
-                    
                   </div>
                   <div className="ml-3 text-sm">
                     <label
@@ -66,12 +87,12 @@ const LoginForm = () => {
                     </label>
                   </div>
                 </div>
-                <a
-                  href="/"
+                <Link
+                  to="/forgot-password"
                   className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Forgot password?
-                </a>
+                </Link>
               </div>
               <button
                 type="submit"
